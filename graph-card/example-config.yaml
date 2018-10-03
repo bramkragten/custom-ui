@@ -1,0 +1,43 @@
+      - type: "custom:graph-card"
+        title: 'Stroom verbruik'
+        hours_to_show: 24
+        update_interval: 10
+        zoom: 75
+        entities:
+          - entity: sensor.elektra_dal_verbruik_vandaag
+            name: Dal
+            smooth: false
+            color: "blue"
+            areaStyle:
+              color:
+                type: 'linear'
+                x: 0
+                y: 0
+                x2: 0
+                y2: 1
+                colorStops:
+                  - offset: 0
+                    color: 'red'
+                  - offset: 1
+                    color: 'blue'
+                globalCoord: false
+          - entity: sensor.elektra_piek_verbruik_vandaag
+            name: Piek
+            smooth: true
+            color: "red"
+            areaStyle:
+              color:
+                type: 'radial'
+                x: 0.5
+                y: 0.5
+                r: 0.5
+                colorStops:
+                  - offset: 0
+                    color: 'blue'
+                  - offset: 1
+                    color: 'red'
+                globalCoord: false
+          - entity: sensor.elektra_verbruik_vandaag
+            areaStyle: {}
+            name: Totaal
+          - sensor.elektra_verbruik_vandaag
