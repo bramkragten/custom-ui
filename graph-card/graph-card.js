@@ -1,3 +1,5 @@
+function getScript(e,t){var n=document.getElementsByTagName("head")[0],r=!1,i=document.createElement("script");i.src=e,i.onload=i.onreadystatechange=function(){!r&&(!this.readyState||this.readyState==="loaded"||this.readyState==="complete")&&(r=!0,typeof t=="function"&&t())},n.appendChild(i)};
+
 class GraphCard extends HTMLElement {
 
     set hass(hass) {
@@ -19,13 +21,13 @@ class GraphCard extends HTMLElement {
     
         var _this = this;
     
-        $.getScript("/local/custom-lovelace/graph-card/echarts.min.js", function(){
+        getScript("/local/custom-lovelace/graph-card/echarts.min.js", function(){
             _this.graph = echarts.init(element);
         	_this.graph.showLoading('default', loading_options);
         	
-        	$(window).resize(function() {
+        	window.onresize = function(event) {
 		        _this.graph.resize();
-	        });
+            };
         });
     
         this.initial_options = {
