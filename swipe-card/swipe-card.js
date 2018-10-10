@@ -60,14 +60,15 @@ class SwipeCard extends HTMLElement {
                     });
             });
           
-        }
+        } else {
         
-        this._cards.forEach(item => {
-          item.hass = hass;
-        });
-
-        if (this.swiper) {
-            this.swiper.update();
+            this._cards.forEach(item => {
+              item.hass = hass;
+            });
+            
+            if (this.swiper) {
+                this.swiper.update();
+            }
         }
     }
     
