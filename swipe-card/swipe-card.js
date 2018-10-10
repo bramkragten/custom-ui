@@ -47,6 +47,7 @@ class SwipeCard extends HTMLElement {
           
             getScript("/local/custom-lovelace/swipe-card/js/swiper.min.js", function(){
                     _this.swiper = new Swiper(_this.container, {
+                      spaceBetween: 8,
                       scrollbar: {
                         el: _this.scrollbar,
                         hide: false,
