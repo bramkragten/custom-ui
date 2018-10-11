@@ -9,7 +9,7 @@ class SwipeCard extends HTMLElement {
           const link = document.createElement('link');
           link.type = 'text/css';
           link.rel = 'stylesheet';
-          link.href = '/local/custom-lovelace/swipe-card/css/swiper.min.css?v=4';
+          link.href = '/local/custom-lovelace/swipe-card/css/swiper.min.css?v=6';
           
           card.appendChild(link);
           this.container = document.createElement('div');
@@ -17,13 +17,46 @@ class SwipeCard extends HTMLElement {
 
           this.content = document.createElement('div');
           this.content.className = 'swiper-wrapper';
-          
-          this.scrollbar = document.createElement('div');
-          this.scrollbar.className = 'swiper-scrollbar';
-          
           this.container.appendChild(this.content);
-          this.container.appendChild(this.scrollbar);
+
+          if ('navigation' in this.parameters) {
+              if (this.parameters.navigation === null) {
+                  this.parameters.navigation = {};
+              }
+              
+              const nextbtn = document.createElement('div');
+              nextbtn.className = 'swiper-button-next';
+              this.container.appendChild(nextbtn);
+              this.parameters.navigation.nextEl = nextbtn;
+              
+              const prevbtn = document.createElement('div');
+              prevbtn.className = 'swiper-button-prev';
+              this.container.appendChild(prevbtn);
+              this.parameters.navigation.prevEl = prevbtn;
+          }
           
+          if ('scrollbar' in this.parameters) {
+              if (this.parameters.scrollbar === null) {
+                  this.parameters.scrollbar = {};
+              }
+              
+              this.scrollbar = document.createElement('div');
+              this.scrollbar.className = 'swiper-scrollbar';
+              this.container.appendChild(this.scrollbar);
+              this.parameters.scrollbar.el = this.scrollbar;
+          }
+          
+          if ('pagination' in this.parameters) {
+              if (this.parameters.pagination === null) {
+                  this.parameters.pagination = {};
+              }
+              
+              this.pagination = document.createElement('div');
+              this.pagination.className = 'swiper-pagination';
+              this.container.appendChild(this.pagination);
+              this.parameters.pagination.el = this.pagination;
+          }
+
           card.appendChild(this.container);
           this.appendChild(card);
           
@@ -39,6 +72,7 @@ class SwipeCard extends HTMLElement {
               if(this._hass)
                 element.hass = this._hass;
               element.className = 'swiper-slide';
+              element.style.width = '40%';
               this.content.appendChild(element);
               return element;
             });
@@ -46,19 +80,7 @@ class SwipeCard extends HTMLElement {
           var _this = this;
           
             getScript("/local/custom-lovelace/swipe-card/js/swiper.min.js", function(){
-                    _this.swiper = new Swiper(_this.container, {
-                      spaceBetween: 8,
-                      scrollbar: {
-                        el: _this.scrollbar,
-                        hide: false,
-                        draggable: true,
-                        snapOnRelease: true,
-                      },
-                      keyboard: {
-                        enabled: true,
-                        onlyInViewport: true,
-                      },
-                    });
+                    _this.swiper = new Swiper(_this.container, _this.parameters);
             });
           
         } else {
@@ -76,6 +98,24 @@ class SwipeCard extends HTMLElement {
   setConfig(config) {
     this.config = config;
     this.title = config.title || '';
+    
+    var defaultParams = {
+                          spaceBetween: 8,
+                          scrollbar: {
+                            hide: false,
+                            draggable: true,
+                            snapOnRelease: true,
+                          },
+                          keyboard: {
+                            enabled: true,
+                            onlyInViewport: true,
+                          },
+                        };
+    
+    console.log(config.parameters);
+    
+    this.parameters = config.parameters || defaultParams;
+    
   }
     
   getCardSize() {
