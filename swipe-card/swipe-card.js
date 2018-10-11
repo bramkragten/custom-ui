@@ -110,8 +110,6 @@ class SwipeCard extends HTMLElement {
   setConfig(config) {
     this.config = config;
     this.title = config.title || '';
-      
-    console.log(config.parameters);
 
     this.parameters = config.parameters || {};
 
