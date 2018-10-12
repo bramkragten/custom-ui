@@ -19,8 +19,8 @@ class SwipeCard extends HTMLElement {
           const link = document.createElement('link');
           link.type = 'text/css';
           link.rel = 'stylesheet';
-          link.href = '/local/custom-lovelace/swipe-card/css/swiper.min.css?v=1.0';
-
+          link.href = '/local/custom-lovelace/swipe-card/css/swiper.min.css?v=8';
+          
           card.appendChild(link);
           this.container = document.createElement('div');
           this.container.className = 'swiper-container';
@@ -33,34 +33,34 @@ class SwipeCard extends HTMLElement {
               if (this.parameters.navigation === null) {
                   this.parameters.navigation = {};
               }
-
+              
               const nextbtn = document.createElement('div');
               nextbtn.className = 'swiper-button-next';
               this.container.appendChild(nextbtn);
               this.parameters.navigation.nextEl = nextbtn;
-
+              
               const prevbtn = document.createElement('div');
               prevbtn.className = 'swiper-button-prev';
               this.container.appendChild(prevbtn);
               this.parameters.navigation.prevEl = prevbtn;
           }
-
+          
           if ('scrollbar' in this.parameters) {
               if (this.parameters.scrollbar === null) {
                   this.parameters.scrollbar = {};
               }
-
+              
               this.scrollbar = document.createElement('div');
               this.scrollbar.className = 'swiper-scrollbar';
               this.container.appendChild(this.scrollbar);
               this.parameters.scrollbar.el = this.scrollbar;
           }
-
+          
           if ('pagination' in this.parameters) {
               if (this.parameters.pagination === null) {
                   this.parameters.pagination = {};
               }
-
+              
               this.pagination = document.createElement('div');
               this.pagination.className = 'swiper-pagination';
               this.container.appendChild(this.pagination);
@@ -69,7 +69,7 @@ class SwipeCard extends HTMLElement {
 
           card.appendChild(this.container);
           this.shadowRoot.appendChild(card);
-
+          
           this._cards = this.config.cards.map((item) => {
               const div = document.createElement('div');
               let element;
@@ -88,35 +88,38 @@ class SwipeCard extends HTMLElement {
               this.content.appendChild(element);
               return element;
             });
-
+          
           var _this = this;
-
+          
             getScript("/local/custom-lovelace/swipe-card/js/swiper.min.js", function(){
                     _this.swiper = new Swiper(_this.container, _this.parameters);
+                    if ('start_card' in _this.config) {
+                        _this.swiper.slideTo(_this.config.start_card-1);
+                    }
             });
-
+          
         } else {
-
+        
             this._cards.forEach(item => {
               item.hass = hass;
             });
-
+            
             if (this.swiper) {
                 this.swiper.update();
             }
         }
     }
-
+    
   setConfig(config) {
     this.config = config;
     this.title = config.title || '';
-
+    
     this.parameters = config.parameters || {};
 
   }
 
   getCardSize() {
-    return 4;
+    return 2;
   }
 }
 
