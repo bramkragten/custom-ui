@@ -23,11 +23,11 @@ class MigrateCard extends LitElement {
       text-align: center;
     }
     </style>
-    <ha-card on-click="${ev => this._migrate(hass)}">
+    <ha-card header="Migrate config" on-click="${ev => this._migrate(hass)}">
       <paper-button>
       <div>
         <ha-icon icon="mdi:playlist-edit" style="width: 40%; height: 40%; color: var(--primary-text-color);"></ha-icon>
-        <span>Migrate config</span>
+        <span>Add ID's to 'ui-lovelace.yaml'</span>
       </div>
       </paper-button>
     </ha-card>
@@ -37,8 +37,7 @@ class MigrateCard extends LitElement {
   _migrate(hass) {
     hass.callWS({ type: "lovelace/config/migrate"}).then(
             (resp) => {
-                alert("Succesfully migrated!");
-                console.log('Message success!', resp);
+                alert("Successfully migrated!");
             },
             (err) => {
                 alert("Error: " + err.message);
