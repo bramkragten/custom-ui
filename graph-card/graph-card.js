@@ -82,7 +82,6 @@ class GraphCard extends HTMLElement {
         };
 
         for (const entity of this.entities) {
-            console.log(entity.areaStyle);
             this.update_options.series.push({
                 	smooth: entity.smooth || true,
                     name: entity.name || '',
