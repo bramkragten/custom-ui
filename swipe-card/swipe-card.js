@@ -33,6 +33,7 @@ class SwipeCard extends HTMLElement {
 
         this.content = document.createElement('div');
         this.content.className = 'swiper-wrapper';
+        this.container.dir = (hass.translationMetadata.translations[hass.selectedLanguage].isRTL || false) ? "rtl" : "ltr";
         this.container.appendChild(this.content);
 
         if ('navigation' in this.parameters) {
