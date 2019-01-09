@@ -1,10 +1,10 @@
-## Lovelace animated weather card
+# Lovelace animated weather card
 
-Originally created for the [old UI](https://community.home-assistant.io/t/custom-ui-weather-state-card-with-a-question/23008) [converted](https://community.home-assistant.io/t/custom-ui-weather-state-card-with-a-question/23008/291) by @arsaboo and @ciotlosm to Lovelace and now converted to Lit to make it even better.
+Originally created for the [old UI](https://community.home-assistant.io/t/custom-ui-weather-state-card-with-a-question/23008) converted by @arsaboo and @ciotlosm to [Lovelace](https://community.home-assistant.io/t/custom-ui-weather-state-card-with-a-question/23008/291) and now converted to Lit to make it even better.
 
 Thanks for all picking this card up.
 
-# Configuration:
+## Configuration:
 
 1. Download the [weather-card.js](https://raw.githubusercontent.com/bramkragten/custom-ui/master/weather-card/weather-card.js) to /config/www/custom-lovelace/weather-card/.
 2. Save, the [amcharts](https://www.amcharts.com/free-animated-svg-weather-icons/) 1.9k icon under www\icons\weather_icons\animated
