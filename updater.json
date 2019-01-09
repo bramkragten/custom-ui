@@ -19,7 +19,7 @@
       "remote_location": "https://raw.githubusercontent.com/bramkragten/custom-ui/master/migrate-card/migrate-card.js",
       "visit_repo": "https://github.com/bramkragten/custom-ui",
       "changelog": "https://github.com/bramkragten/custom-ui/blob/master/migrate-card/readme.md"
-  }
+  },
   "weather-card": {
       "updated_at": "2019-01-09",
       "version": "1.0.0",
