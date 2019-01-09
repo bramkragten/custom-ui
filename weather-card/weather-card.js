@@ -3,7 +3,7 @@ import {
 } from 'https://unpkg.com/@polymer/lit-element@^0.6.4/lit-element.js?module';
 
 const weatherIconsDay = {
-  clear: "sunny",
+  clear: "day",
   cloudy: "cloudy",
   fog: "cloudy",
   hail: "rainy-7",
@@ -101,7 +101,7 @@ class WeatherCard extends LitElement {
           <span
             class="icon bigger"
             style="background: none, url(/local/custom_ui/weather_icons/animated/${
-              this.getWeatherIcon(stateObj.state, this.hass.states["sun.sun"].state)
+              this.getWeatherIcon(stateObj.state.toLowerCase(), this.hass.states["sun.sun"].state)
             }.svg) no-repeat; background-size: contain;"
             >${stateObj.state}</span
           >
@@ -146,7 +146,7 @@ class WeatherCard extends LitElement {
                         new Date(daily.datetime).toLocaleDateString(lang, {weekday: 'short'}).split(" ")[0]
                       }</span>
                       <br><i class="icon" style="background: none, url(/local/custom_ui/weather_icons/animated/${
-                        weatherIconsDay[daily.condition]
+                        weatherIconsDay[daily.condition.toLowerCase()]
                       }.svg) no-repeat; background-size: contain;"></i>
                       <br><span class="highTemp">${daily.temperature}${this.getUnit(
                     "temperature"
