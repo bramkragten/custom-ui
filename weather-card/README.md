@@ -9,7 +9,7 @@ Thanks for all picking this card up.
 ## Configuration:
 
 1. Download the [weather-card.js](https://raw.githubusercontent.com/bramkragten/custom-ui/master/weather-card/weather-card.js) to /config/www/custom-lovelace/weather-card/.
-2. Save, the [amcharts](https://www.amcharts.com/free-animated-svg-weather-icons/) icons under /local/custom_ui/weather_icons/animated/
+2. Save, the [amcharts](https://www.amcharts.com/free-animated-svg-weather-icons/) icons under /config/www/custom-lovelace/weather-card/icons/
 
 Add the following to resources in your lovelace config:
 ```yaml
