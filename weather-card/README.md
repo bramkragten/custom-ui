@@ -2,6 +2,8 @@
 
 Originally created for the [old UI](https://community.home-assistant.io/t/custom-ui-weather-state-card-with-a-question/23008) converted by @arsaboo and @ciotlosm to [Lovelace](https://community.home-assistant.io/t/custom-ui-weather-state-card-with-a-question/23008/291) and now converted to Lit to make it even better.
 
+![Weather Card](https://community-home-assistant-assets.s3.amazonaws.com/original/2X/b/bfc33a394c9cffd891028cc7efffd3b78f741d05.gif)
+
 Thanks for all picking this card up.
 
 ## Configuration:
