@@ -23,7 +23,11 @@ And add a card with type `custom:weather-card`:
   - type: custom:weather-card
     entity: weather.yourweatherentity
 ```
-
+Make sure the `sun` component is enabled:
+```yaml
+# Example configuration.yaml entry
+sun:
+```
 ### Dark Sky:
 When using Dark Sky you should put the mode to `daily` if you want a daily forecast with highs and lows.
 ```yaml
