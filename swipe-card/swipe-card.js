@@ -11,7 +11,6 @@ class SwipeCard extends LitElement {
         return {
             _config: {},
             _cards: {},
-            hass: {},
         };
     }
 
@@ -61,20 +60,18 @@ class SwipeCard extends LitElement {
     }
 
     render() {
-        if (!this._config) {
+        if (!this._config || !this._hass) {
             return html ``;
         }
 
         return html `
-          <div>
-          <div class="swiper-container">
+          <div class="swiper-container" dir="${(this._hass.translationMetadata.translations[this._hass.selectedLanguage || this._hass.language].isRTL || false) ? "rtl" : "ltr"}">
             <div class="swiper-wrapper">
               ${this._cards}
             </div>
             ${ "pagination" in this._parameters ? html`<div class="swiper-pagination"></div>` : "" }
             ${ "navigation" in this._parameters ? html`<div class="swiper-button-next"></div><div class="swiper-button-prev"></div>` : "" }
             ${ "scrollbar" in this._parameters ? html`<div class="swiper-scrollbar"></div>` : "" }
-          </div>
           </div>
     		`;
     }
