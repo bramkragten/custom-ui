@@ -112,7 +112,7 @@ class WeatherCard extends LitElement {
 
     const stateObj = this.hass.states[this._config.entity];
     const lang = this.hass.selectedLanguage || this.hass.language;
-    
+
     return html`
       ${this.renderStyle()}
       <ha-card @click="${this._handleClick}">
@@ -178,7 +178,7 @@ class WeatherCard extends LitElement {
   getWeatherIcon(condition, sun) {
     return sun == "above_horizon" ? weatherIconsDay[condition] : weatherIconsNight[condition];
   }
-  
+
    getUnit(measure) {
       const lengthUnit = this.hass.config.unit_system.length;
       switch (measure) {
@@ -213,17 +213,17 @@ class WeatherCard extends LitElement {
             padding-right:1em;
             position: relative;
           }
-          
+
           .clear {
             clear: both;
           }
-            
+
           .ha-icon {
             height: 18px;
             margin-right: 5px;
             color: var(--paper-item-icon-color);
           }
-        
+
           .temp {
             font-weight: 300;
             font-size: 4em;
@@ -231,7 +231,7 @@ class WeatherCard extends LitElement {
             position: absolute;
             right: 1em;
           }
-        
+
           .tempc {
             font-weight: 300;
             font-size: 1.5em;
@@ -242,10 +242,11 @@ class WeatherCard extends LitElement {
             margin-top: -14px;
             margin-right: 7px;
           }
-        
+
           .variations {
             display: flex;
             flex-flow:row wrap;
+            justify-content: space-between;
             font-weight: 300;
             color: var(--primary-text-color);
             list-style: none;
@@ -254,19 +255,19 @@ class WeatherCard extends LitElement {
           }
 
           .variations li{
-            flex-basis: 50%; 
+            flex-basis: auto;
           }
 
           .unit {
             font-size: .8em;
           }
-        
+
           .forecast {
             width: 100%;
             margin: 0 auto;
             height: 9em;
           }
-        
+
           .day {
             display: block;
             width: 20%;
@@ -277,28 +278,28 @@ class WeatherCard extends LitElement {
             line-height: 2;
             box-sizing: border-box;
           }
-        
+
           .dayname {
             text-transform: uppercase;
           }
-        
+
           .forecast .day:first-child {
             margin-left: 0;
           }
-        
+
           .forecast .day:nth-last-child(1) {
             border-right: none;
             margin-right: 0;
           }
-        
+
           .highTemp {
             font-weight: bold;
           }
-        
+
           .lowTemp {
             color: var(--secondary-text-color);
           }
-        
+
           .icon.bigger {
             width: 10em;
             height: 10em;
@@ -306,7 +307,7 @@ class WeatherCard extends LitElement {
             position: absolute;
             left: 0em;
           }
-        
+
           .icon {
             width: 50px;
             height: 50px;
@@ -318,7 +319,7 @@ class WeatherCard extends LitElement {
             background-repeat: no-repeat;
             text-indent: -9999px;
           }
-        
+
           .weather {
             font-weight: 300;
             font-size: 1.5em;
