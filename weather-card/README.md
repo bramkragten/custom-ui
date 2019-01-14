@@ -6,8 +6,20 @@ Originally created for the [old UI](https://community.home-assistant.io/t/custom
 
 Thanks for all picking this card up.
 
-## Configuration:
+## Installation:
 
+You have 2 options, hosted or self hosted (manual). The first option needs internet and will update itself.
+
+# Hosted:
+Add the following to resources in your lovelace config:
+
+```yaml
+  - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/weather-card/weather-card.min.js
+    type: module
+```
+2. Save, the [amcharts](https://www.amcharts.com/free-animated-svg-weather-icons/) icons (The contents of the folder "animated") under /config/www/custom-lovelace/weather-card/icons/ 
+
+# Manual:
 1. Download the [weather-card.js](https://raw.githubusercontent.com/bramkragten/custom-ui/master/weather-card/weather-card.js) to /config/www/custom-lovelace/weather-card/.
 2. Save, the [amcharts](https://www.amcharts.com/free-animated-svg-weather-icons/) icons (The contents of the folder "animated") under /config/www/custom-lovelace/weather-card/icons/ 
 
@@ -17,6 +29,7 @@ resources:
   - url: /local/custom-lovelace/weather-card/weather-card.js
     type: module
 ```
+## Configuration:
 
 And add a card with type `custom:weather-card`:
 ```yaml
