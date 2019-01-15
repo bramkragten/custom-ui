@@ -11,6 +11,7 @@ You have 2 options, hosted or self hosted (manual). The first option needs inter
 Add the following to resources in your lovelace config:
 
 ```yaml
+resources:
   - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/swipe-card.min.js
     type: module
 ```
