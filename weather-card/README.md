@@ -17,11 +17,10 @@ Add the following to resources in your lovelace config:
   - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/weather-card/weather-card.min.js
     type: module
 ```
-2. Save, the [amcharts](https://www.amcharts.com/free-animated-svg-weather-icons/) icons (The contents of the folder "animated") under /config/www/custom-lovelace/weather-card/icons/ 
 
 # Manual:
-1. Download the [weather-card.js](https://raw.githubusercontent.com/bramkragten/custom-ui/master/weather-card/weather-card.js) to /config/www/custom-lovelace/weather-card/.
-2. Save, the [amcharts](https://www.amcharts.com/free-animated-svg-weather-icons/) icons (The contents of the folder "animated") under /config/www/custom-lovelace/weather-card/icons/ 
+1. Download the [weather-card.js](https://raw.githubusercontent.com/bramkragten/custom-ui/master/weather-card/weather-card.js) to /config/www/custom-lovelace/weather-card/. (or an other folder in /config/www/)
+2. Save, the [amcharts](https://www.amcharts.com/free-animated-svg-weather-icons/) icons (The contents of the folder "animated") under /config/www/custom-lovelace/weather-card/icons/ (or an other folder in /config/www/)
 
 Add the following to resources in your lovelace config:
 ```yaml
@@ -36,6 +35,14 @@ And add a card with type `custom:weather-card`:
   - type: custom:weather-card
     entity: weather.yourweatherentity
 ```
+
+If you want to use your local icons add the location to the icons:
+```yaml
+  - type: custom:weather-card
+    entity: weather.yourweatherentity
+	icons: '/config/www/custom-lovelace/weather-card/icons/'
+```
+
 Make sure the `sun` component is enabled:
 ```yaml
 # Example configuration.yaml entry
