@@ -1,7 +1,5 @@
-var LitElement =
-  LitElement ||
-  Object.getPrototypeOf(customElements.get("hui-error-entity-row"));
-var html = LitElement.prototype.html;
+const LitElement = Object.getPrototypeOf(customElements.get("ha-panel-lovelace"));
+const html = LitElement.prototype.html;
 
 const weatherIconsDay = {
   clear: "day",
@@ -78,8 +76,8 @@ function hasConfigOrEntityChanged(element, changedProps) {
     return (
       oldHass.states[element._config.entity] !==
       element.hass.states[element._config.entity] ||
-      oldHass.states[sun.sun] !==
-      element.hass.states[sun.sun]
+      oldHass.states["sun.sun"] !==
+      element.hass.states["sun.sun"]
     );
   }
 
@@ -130,10 +128,8 @@ class WeatherCard extends LitElement {
                 <span class="ha-icon"><ha-icon icon="mdi:water-percent"></ha-icon></span>
                   ${stateObj.attributes.humidity}<span class="unit"> %
                 </span>
-              </li>
-              <li>
-                <span class="ha-icon"
-                  ><ha-icon icon="mdi:weather-windy"></ha-icon></span>
+                <br>
+                <span class="ha-icon"><ha-icon icon="mdi:weather-windy"></ha-icon></span>
                   ${windDirections[(parseInt((stateObj.attributes.wind_bearing + 11.25) / 22.5))]} ${stateObj.attributes.wind_speed}<span class="unit">
                   ${this.getUnit("length")}/h
                 </span>
@@ -142,8 +138,7 @@ class WeatherCard extends LitElement {
                 <span class="ha-icon"><ha-icon icon="mdi:gauge"></ha-icon></span>${stateObj.attributes.pressure}<span class="unit">
                   ${this.getUnit("air_pressure")}
                 </span>
-              </li>
-              <li>
+                <br>
                 <span class="ha-icon"><ha-icon icon="mdi:weather-fog"></ha-icon></span>
                 ${stateObj.attributes.visibility}<span class="unit"> ${this.getUnit("length")}
                 </span>
