@@ -1,9 +1,7 @@
-import {
-    LitElement,
-    html,
-    css
-} from 'https://unpkg.com/lit-element@2.0.0-rc.2/lit-element.js?module';
 import Swiper from 'https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/js/swiper.min.js';
+
+const LitElement = Object.getPrototypeOf(customElements.get("ha-panel-lovelace"));
+const html = LitElement.prototype.html;
 
 class SwipeCard extends LitElement {
 
@@ -65,14 +63,14 @@ class SwipeCard extends LitElement {
         }
 
         return html `
-          <div class="swiper-container" dir="${(this._hass.translationMetadata.translations[this._hass.selectedLanguage || this._hass.language].isRTL || false) ? "rtl" : "ltr"}">
-            <div class="swiper-wrapper">
-              ${this._cards}
+            <div class="swiper-container" dir="${(this._hass.translationMetadata.translations[this._hass.selectedLanguage || this._hass.language].isRTL || false) ? "rtl" : "ltr"}">
+              <div class="swiper-wrapper">
+                ${this._cards}
+              </div>
+              ${ "pagination" in this._parameters ? html`<div class="swiper-pagination"></div>` : "" }
+              ${ "navigation" in this._parameters ? html`<div class="swiper-button-next"></div><div class="swiper-button-prev"></div>` : "" }
+              ${ "scrollbar" in this._parameters ? html`<div class="swiper-scrollbar"></div>` : "" }
             </div>
-            ${ "pagination" in this._parameters ? html`<div class="swiper-pagination"></div>` : "" }
-            ${ "navigation" in this._parameters ? html`<div class="swiper-button-next"></div><div class="swiper-button-prev"></div>` : "" }
-            ${ "scrollbar" in this._parameters ? html`<div class="swiper-scrollbar"></div>` : "" }
-          </div>
     		`;
     }
 
