@@ -3,6 +3,7 @@ const html = LitElement.prototype.html;
 
 const weatherIconsDay = {
   clear: "day",
+  "clear-night": "night",
   cloudy: "cloudy",
   fog: "cloudy",
   hail: "rainy-7",
@@ -25,7 +26,6 @@ const weatherIconsNight = {
   sunny: "night",
   partlycloudy: "cloudy-night-3",
   "windy-variant": "cloudy-night-3",
-  "clear-night": "night",
 };
 
 const windDirections = [
@@ -117,8 +117,8 @@ class WeatherCard extends LitElement {
       <ha-card @click="${this._handleClick}">
           <span
             class="icon bigger"
-            style="background: none, url(/local/custom-lovelace/weather-card/icons/${
-              this.getWeatherIcon(stateObj.state.toLowerCase(), this.hass.states["sun.sun"].state)}.svg) no-repeat; background-size: contain;">${stateObj.state}
+            style="background: none, url(${
+              this.getWeatherIcon(stateObj.state.toLowerCase(), this.hass.states["sun.sun"].state)}) no-repeat; background-size: contain;">${stateObj.state}
           </span>
           <span class="temp">${Math.round(stateObj.attributes.temperature)}</span>
             <span class="tempc"> ${this.getUnit("temperature")}</span>
@@ -154,9 +154,9 @@ class WeatherCard extends LitElement {
                       <span class="dayname">${
                         new Date(daily.datetime).toLocaleDateString(lang, {weekday: 'short'})
                       }</span>
-                      <br><i class="icon" style="background: none, url(/local/custom-lovelace/weather-card/icons/${
-                        weatherIconsDay[daily.condition.toLowerCase()]
-                      }.svg) no-repeat; background-size: contain;"></i>
+                      <br><i class="icon" style="background: none, url(${
+                        this.getWeatherIcon(daily.condition.toLowerCase())
+                      }) no-repeat; background-size: contain;"></i>
                       <br><span class="highTemp">${daily.temperature}${this.getUnit(
                     "temperature"
                   )}</span>
@@ -172,7 +172,7 @@ class WeatherCard extends LitElement {
   }
 
   getWeatherIcon(condition, sun) {
-    return sun == "above_horizon" ? weatherIconsDay[condition] : weatherIconsNight[condition];
+    return `${ this._config.icons ? this._config.icons : "https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/weather-card/icons/animated/" }${ (sun && sun == "below_horizon") ? weatherIconsNight[condition] : weatherIconsDay[condition] }.svg`;
   }
 
    getUnit(measure) {
