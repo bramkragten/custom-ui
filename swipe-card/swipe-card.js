@@ -3,6 +3,8 @@ import Swiper from 'https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swi
 const LitElement = Object.getPrototypeOf(customElements.get("ha-panel-lovelace"));
 const html = LitElement.prototype.html;
 
+const CUSTOM_TYPE_PREFIX = "custom:";
+
 class SwipeCard extends LitElement {
 
     get properties() {
@@ -119,11 +121,11 @@ class SwipeCard extends LitElement {
     _createCardElement(cardConfig) {
         let element;
         let errorConfig;
-        if (cardConfig.type.startsWith("custom:")) {
+        if (cardConfig.type.startsWith(CUSTOM_TYPE_PREFIX)) {
             const tag = cardConfig.type.substr(CUSTOM_TYPE_PREFIX.length);
 
             if (customElements.get(tag)) {
-                element = document.createElement(`${cardConfig.type.substr("custom:".length)}`);
+                element = document.createElement(`${tag}`);
             } else {
                 errorConfig = {
                   type: "error",
