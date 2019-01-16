@@ -5,6 +5,40 @@ const html = LitElement.prototype.html;
 
 const CUSTOM_TYPE_PREFIX = "custom:";
 
+function deepcopy(value) {
+  if (!(!!value && typeof value == 'object')) {
+    return value;
+  }
+  if (Object.prototype.toString.call(value) == '[object Date]') {
+    return new Date(value.getTime());
+  }
+  if (Array.isArray(value)) {
+    return value.map(deepcopy);
+  }
+  var result = {};
+  Object.keys(value).forEach(
+    function(key) { result[key] = deepcopy(value[key]); });
+  return result;
+}
+
+const fireEvent = (
+  node,
+  type,
+  detail,
+  options
+) => {
+  options = options || {};
+  detail = detail === null || detail === undefined ? {} : detail;
+  const event = new Event(type, {
+    bubbles: options.bubbles === undefined ? true : options.bubbles,
+    cancelable: Boolean(options.cancelable),
+    composed: options.composed === undefined ? true : options.composed,
+  });
+  event.detail = detail;
+  node.dispatchEvent(event);
+  return event;
+};
+
 class SwipeCard extends LitElement {
 
     get properties() {
@@ -18,7 +52,7 @@ class SwipeCard extends LitElement {
         if (!config || !config.cards || !Array.isArray(config.cards)) {
             throw new Error("Card config incorrect");
         }
-        this._config = {...config};
+        this._config = deepcopy(config);
         this._parameters = this._config.parameters || {};
         this._cards = this._config.cards.map((card) => {
             const element = this._createCardElement(card);
