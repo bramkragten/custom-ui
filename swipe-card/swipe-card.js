@@ -140,7 +140,10 @@ class SwipeCard extends LitElement {
 
                 customElements.whenDefined(tag).then(() => {
                   clearTimeout(timer);
+                  //HA >= 0.86
                   fireEvent(element, "ll-rebuild");
+                  //HA < 0.86
+                  fireEvent(element, "rebuild-view");
                 });
             }
         } else {
