@@ -18,9 +18,9 @@ class SwipeCard extends LitElement {
         if (!config || !config.cards || !Array.isArray(config.cards)) {
             throw new Error("Card config incorrect");
         }
-        this._config = config;
-        this._parameters = config.parameters || {};
-        this._cards = config.cards.map((card) => {
+        this._config = {...config};
+        this._parameters = this._config.parameters || {};
+        this._cards = this._config.cards.map((card) => {
             const element = this._createCardElement(card);
             return element;
         });
