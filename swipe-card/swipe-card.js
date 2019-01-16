@@ -120,7 +120,7 @@ class SwipeCard extends LitElement {
         let element;
         let errorConfig;
         if (cardConfig.type.startsWith("custom:")) {
-            const tag = config.type.substr(CUSTOM_TYPE_PREFIX.length);
+            const tag = cardConfig.type.substr(CUSTOM_TYPE_PREFIX.length);
 
             if (customElements.get(tag)) {
                 element = document.createElement(`${cardConfig.type.substr("custom:".length)}`);
