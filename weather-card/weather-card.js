@@ -86,7 +86,7 @@ function hasConfigOrEntityChanged(element, changedProps) {
 
 class WeatherCard extends LitElement {
 
-  get properties() {
+  static get properties() {
     return {
       _config: {},
       hass: {},

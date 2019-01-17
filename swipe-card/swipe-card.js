@@ -41,10 +41,11 @@ const fireEvent = (
 
 class SwipeCard extends LitElement {
 
-    get properties() {
+    static get properties() {
         return {
             _config: {},
             _cards: {},
+            _hass: {},
         };
     }
 
@@ -70,31 +71,23 @@ class SwipeCard extends LitElement {
         for (const element of this._cards) {
             element.hass = this._hass;
         }
-
-        if (this.swiper) {
-            this.swiper.update();
-        }
     }
 
     connectedCallback() {
         super.connectedCallback();
-        if (this._updated && !this._loaded) {
+        if (this._config && this._hass && this._updated && !this._loaded) {
             this._initialLoad();
-        }
-        if (this.swiper) {
+        } else if (this.swiper) {
             this.swiper.update();
         }
     }
 
-    firstUpdated() {
-        this._updated = true;
-        if (this.isConnected && !this._loaded) {
-            this._initialLoad();
-        }
-    }
-
-    updated() {
-      if (this.swiper) {
+    updated(changedProperties) {
+      super.updated(changedProperties);
+      this._updated = true;
+      if (this._config && this._hass && this.isConnected && !this._loaded) {
+        this._initialLoad();
+      } else if (this.swiper) {
         this.swiper.update();
       }
     }
@@ -124,6 +117,8 @@ class SwipeCard extends LitElement {
         link.href = 'https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/css/swiper.min.css';
         this.shadowRoot.appendChild(link);
 
+        await this.updateComplete;
+
         if ('pagination' in this._parameters) {
             if (this._parameters.pagination === null) {
                 this._parameters.pagination = {};
@@ -147,16 +142,10 @@ class SwipeCard extends LitElement {
         }
 
         if ('start_card' in this._config) {
-            const start_card = this._config.start_card - 1;
-            this._parameters.on = {
-                init: function () {
-                    this.slideTo(start_card);
-                },
-            };
+            this._parameters.initialSlide = this._config.start_card - 1;
         }
-
+        
         this.swiper = new Swiper(this.shadowRoot.querySelector(".swiper-container"), this._parameters);
-
     }
 
     _createCardElement(cardConfig) {
