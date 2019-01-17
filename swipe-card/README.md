@@ -35,7 +35,7 @@ And add a card with type `custom:swipe-card`:
     cards: []
 ```
 
-# When you want to load the resources local add the path to the local files:
+### When you want to load the resources local add the path to the local files:
 ```yaml
   - type: custom:swipe-card
     path: '/local/custom-lovelace/swipe-card'
