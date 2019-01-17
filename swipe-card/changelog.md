@@ -1,3 +1,7 @@
+## 2.0.1
+- Make local possible with `path` option
+- Some bug fixes
+
 ## 2.0.0
 - Convert to LitElement
 
