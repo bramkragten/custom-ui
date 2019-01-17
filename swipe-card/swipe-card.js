@@ -1,5 +1,3 @@
-import Swiper from 'https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/js/swiper.min.js';
-
 const LitElement = Object.getPrototypeOf(customElements.get("ha-panel-lovelace"));
 const html = LitElement.prototype.html;
 
@@ -111,10 +109,16 @@ class SwipeCard extends LitElement {
 
     async _initialLoad() {
         this._loaded = true;
+        
+        const path = this._config.path ? this._config.path : "https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/";
+        
+		const swiperMod = await import(`${path}/js/swiper.min.js`);
+		const Swiper = swiperMod.default;
+
         const link = document.createElement('link');
         link.type = 'text/css';
         link.rel = 'stylesheet';
-        link.href = 'https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/css/swiper.min.css';
+        link.href = `${path}/css/swiper.min.css`;
         this.shadowRoot.appendChild(link);
 
         await this.updateComplete;
