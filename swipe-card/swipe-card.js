@@ -71,18 +71,24 @@ class SwipeCard extends LitElement {
             element.hass = this._hass;
         }
 
+        if (this.swiper) {
+            this.swiper.update();
+        }
     }
 
     connectedCallback() {
         super.connectedCallback();
-        if (this._config && this._updated && !this._loaded) {
+        if (this._updated && !this._loaded) {
             this._initialLoad();
+        }
+        if (this.swiper) {
+            this.swiper.update();
         }
     }
 
     firstUpdated() {
         this._updated = true;
-        if (this._config && this.isConnected && !this._loaded) {
+        if (this.isConnected && !this._loaded) {
             this._initialLoad();
         }
     }
@@ -150,6 +156,7 @@ class SwipeCard extends LitElement {
         }
 
         this.swiper = new Swiper(this.shadowRoot.querySelector(".swiper-container"), this._parameters);
+
     }
 
     _createCardElement(cardConfig) {
