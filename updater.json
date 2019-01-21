@@ -21,8 +21,8 @@
       "changelog": "https://github.com/bramkragten/custom-ui/blob/master/migrate-card/readme.md"
   },
   "weather-card": {
-      "updated_at": "2019-01-14",
-      "version": "1.0.1",
+      "updated_at": "2019-01-21",
+      "version": "1.1.0",
       "remote_location": "https://raw.githubusercontent.com/bramkragten/custom-ui/master/weather-card/weather-card.js",
       "visit_repo": "https://github.com/bramkragten/custom-ui",
       "changelog": "https://github.com/bramkragten/custom-ui/blob/master/weather-card/changelog.md"
