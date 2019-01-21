@@ -202,9 +202,17 @@ class WeatherCard extends LitElement {
                   <br /><span class="highTemp"
                     >${daily.temperature}${this.getUnit("temperature")}</span
                   >
-                  <br /><span class="lowTemp"
-                    >${daily.templow}${this.getUnit("temperature")}</span
-                  >
+                  ${
+                    daily.templow
+                      ? html`
+                          <br /><span class="lowTemp"
+                            >${daily.templow}${
+                              this.getUnit("temperature")
+                            }</span
+                          >
+                        `
+                      : ""
+                  }
                 </div>
               `
             )
