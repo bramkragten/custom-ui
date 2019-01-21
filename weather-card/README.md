@@ -4,7 +4,7 @@ Originally created for the [old UI](https://community.home-assistant.io/t/custom
 
 This card uses the awesome [animated SVG weather icons by amCharts](https://www.amcharts.com/free-animated-svg-weather-icons/).
 
-![Weather Card](https://community-home-assistant-assets.s3.amazonaws.com/original/2X/b/bfc33a394c9cffd891028cc7efffd3b78f741d05.gif)
+![Weather Card](https://github.com/bramkragten/custom-ui/blob/master/weather-card/weather-card.gif?raw=true)
 
 Thanks for all picking this card up.
 
@@ -36,6 +36,7 @@ And add a card with type `custom:weather-card`:
 ```yaml
   - type: custom:weather-card
     entity: weather.yourweatherentity
+    name: Optional name
 ```
 
 If you want to use your local icons add the location to the icons:
