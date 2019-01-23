@@ -81,11 +81,20 @@ function hasConfigOrEntityChanged(element, changedProps) {
 }
 
 class WeatherCard extends LitElement {
-  get properties() {
+  static get properties() {
     return {
       _config: {},
       hass: {}
     };
+  }
+
+  static async getConfigElement() {
+    await import("./weather-card-editor.js");
+    return document.createElement("weather-card-editor");
+  }
+
+  static getStubConfig() {
+    return {};
   }
 
   setConfig(config) {
@@ -105,6 +114,24 @@ class WeatherCard extends LitElement {
     }
 
     const stateObj = this.hass.states[this._config.entity];
+
+    if (!stateObj) {
+      return html`
+        <style>
+          .not-found {
+            flex: 1;
+            background-color: yellow;
+            padding: 8px;
+          }
+        </style>
+        <ha-card>
+          <div class="not-found">
+            Entity not available: ${this._config.entity}
+          </div>
+        </ha-card>
+      `;
+    }
+
     const lang = this.hass.selectedLanguage || this.hass.language;
 
     const next_rising = new Date(
@@ -134,7 +161,13 @@ class WeatherCard extends LitElement {
               `
             : ""
         }
-        <span class="temp">${Math.round(stateObj.attributes.temperature)}</span>
+        <span class="temp"
+          >${
+            this.getUnit("temperature") == "°F"
+              ? Math.round(stateObj.attributes.temperature)
+              : stateObj.attributes.temperature
+          }</span
+        >
         <span class="tempc"> ${this.getUnit("temperature")}</span>
         <span>
           <ul class="variations">
@@ -181,43 +214,55 @@ class WeatherCard extends LitElement {
             </li>
           </ul>
         </span>
-        <div class="forecast clear">
-          ${
-            stateObj.attributes.forecast.slice(0, 5).map(
-              daily => html`
-                <div class="day">
-                  <span class="dayname"
-                    >${
-                      new Date(daily.datetime).toLocaleDateString(lang, {
-                        weekday: "short"
-                      })
-                    }</span
-                  >
-                  <br /><i
-                    class="icon"
-                    style="background: none, url(${
-                      this.getWeatherIcon(daily.condition.toLowerCase())
-                    }) no-repeat; background-size: contain;"
-                  ></i>
-                  <br /><span class="highTemp"
-                    >${daily.temperature}${this.getUnit("temperature")}</span
-                  >
+        ${
+          stateObj.attributes.forecast &&
+          stateObj.attributes.forecast.length > 0
+            ? html`
+                <div class="forecast clear">
                   ${
-                    daily.templow
-                      ? html`
-                          <br /><span class="lowTemp"
-                            >${daily.templow}${
+                    stateObj.attributes.forecast.slice(0, 5).map(
+                      daily => html`
+                        <div class="day">
+                          <span class="dayname"
+                            >${
+                              new Date(daily.datetime).toLocaleDateString(
+                                lang,
+                                {
+                                  weekday: "short"
+                                }
+                              )
+                            }</span
+                          >
+                          <br /><i
+                            class="icon"
+                            style="background: none, url(${
+                              this.getWeatherIcon(daily.condition.toLowerCase())
+                            }) no-repeat; background-size: contain;"
+                          ></i>
+                          <br /><span class="highTemp"
+                            >${daily.temperature}${
                               this.getUnit("temperature")
                             }</span
                           >
-                        `
-                      : ""
+                          ${
+                            daily.templow
+                              ? html`
+                                  <br /><span class="lowTemp"
+                                    >${daily.templow}${
+                                      this.getUnit("temperature")
+                                    }</span
+                                  >
+                                `
+                              : ""
+                          }
+                        </div>
+                      `
+                    )
                   }
                 </div>
               `
-            )
-          }
-        </div>
+            : ""
+        }
       </ha-card>
     `;
   }

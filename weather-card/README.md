@@ -13,46 +13,57 @@ Thanks for all picking this card up.
 You have 2 options, hosted or self hosted (manual). The first option needs internet and will update itself.
 
 # Hosted:
+
 Add the following to resources in your lovelace config:
 
 ```yaml
-  - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/weather-card/weather-card.min.js
-    type: module
+- url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/weather-card/weather-card.min.js
+  type: module
 ```
 
 # Manual:
-1. Download the [weather-card.js](https://raw.githubusercontent.com/bramkragten/custom-ui/master/weather-card/weather-card.js) to /config/www/custom-lovelace/weather-card/. (or an other folder in /config/www/)
-2. Save, the [amCharts icons](https://www.amcharts.com/free-animated-svg-weather-icons/) (The contents of the folder "animated") under /config/www/custom-lovelace/weather-card/icons/ (or an other folder in /config/www/)
+
+1. Download the [weather-card.js](https://raw.githubusercontent.com/bramkragten/custom-ui/master/weather-card/weather-card.js) to `/config/www/custom-lovelace/weather-card/`. (or an other folder in `/config/www/`)
+2. Save, the [amCharts icons](https://www.amcharts.com/free-animated-svg-weather-icons/) (The contents of the folder "animated") under `/config/www/custom-lovelace/weather-card/icons/` (or an other folder in `/config/www/`)
+3. If you use Lovelace in storage mode, and want to use the editor, download the [weather-card-editor.js](https://raw.githubusercontent.com/bramkragten/custom-ui/master/weather-card/weather-card-editor.js) to `/config/www/custom-lovelace/weather-card/`. (or the folder you used above)
 
 Add the following to resources in your lovelace config:
+
 ```yaml
 resources:
   - url: /local/custom-lovelace/weather-card/weather-card.js
     type: module
 ```
+
 ## Configuration:
 
 And add a card with type `custom:weather-card`:
+
 ```yaml
-  - type: custom:weather-card
-    entity: weather.yourweatherentity
-    name: Optional name
+- type: custom:weather-card
+  entity: weather.yourweatherentity
+  name: Optional name
 ```
 
 If you want to use your local icons add the location to the icons:
+
 ```yaml
-  - type: custom:weather-card
-    entity: weather.yourweatherentity
-    icons: '/local/custom-lovelace/weather-card/icons/'
+- type: custom:weather-card
+  entity: weather.yourweatherentity
+  icons: "/local/custom-lovelace/weather-card/icons/"
 ```
 
 Make sure the `sun` component is enabled:
+
 ```yaml
 # Example configuration.yaml entry
 sun:
 ```
+
 ### Dark Sky:
+
 When using Dark Sky you should put the mode to `daily` if you want a daily forecast with highs and lows.
+
 ```yaml
 # Example configuration.yaml entry
 weather:
