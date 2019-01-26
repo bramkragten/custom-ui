@@ -143,7 +143,9 @@ class WeatherCard extends LitElement {
 
     return html`
       ${this.renderStyle()}
-      <ha-card @click="${this._handleClick}">
+      <ha-card @click="${this._handleClick}"
+       ?compact="${this._config.compact}"
+      >
         ${
           this._config.compact
             ? ""
@@ -329,6 +331,10 @@ class WeatherCard extends LitElement {
           padding-left: 1em;
           padding-right: 1em;
           position: relative;
+        }
+
+        ha-card[compact] {
+          padding-top: 1.3em;
         }
 
         .clear {
