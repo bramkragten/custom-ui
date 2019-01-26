@@ -57,6 +57,14 @@ If you want to use your local icons add the location to the icons:
   icons: "/local/custom-lovelace/weather-card/icons/"
 ```
 
+If you want just a compact forecast:
+
+```yaml
+- type: custom:weather-card
+  entity: weather.yourweatherentity
+  compact: true
+```
+
 Make sure the `sun` component is enabled:
 
 ```yaml

@@ -42,12 +42,21 @@ export class WeatherCardEditor extends LitElement {
     return this._config.icons || "";
   }
 
+  get _compact() {
+    return this._config.compact || false;
+  }
+
   render() {
     if (!this.hass) {
       return html``;
     }
 
+    const entities = Object.keys(this.hass.states).filter(
+      eid => eid.substr(0, eid.indexOf(".")) === "weather"
+    );
+
     return html`
+      ${this.renderStyle()}
       <div class="card-config">
         <div class="side-by-side">
           <paper-input
@@ -62,29 +71,52 @@ export class WeatherCardEditor extends LitElement {
             .configValue="${"icons"}"
             @value-changed="${this._valueChanged}"
           ></paper-input>
-          ${
-            customElements.get("ha-entity-picker")
-              ? html`
-                  <ha-entity-picker
-                    .hass="${this.hass}"
-                    .value="${this._entity}"
-                    .configValue=${"entity"}
-                    domain-filter="weather"
-                    @change="${this._valueChanged}"
-                    allow-custom-entity
-                  ></ha-entity-picker>
-                `
-              : html`
-                  <paper-input
-                    label="Entity"
-                    .value="${this._entity}"
-                    .configValue="${"entity"}"
-                    @value-changed="${this._valueChanged}"
-                  ></paper-input>
-                `
-          }
+        </div>
+        <div class="side-by-side">
+          <paper-dropdown-menu
+            label="Entity"
+            @value-changed="${this._valueChanged}"
+            .configValue="${"entity"}"
+          >
+            <paper-listbox
+              slot="dropdown-content"
+              .selected="${entities.indexOf(this._entity)}"
+            >
+              ${
+                entities.map(entity => {
+                  return html`
+                    <paper-item>${entity}</paper-item>
+                  `;
+                })
+              }
+            </paper-listbox>
+          </paper-dropdown-menu>
+
+          <paper-toggle-button
+            ?checked="${this._compact !== false}"
+            .configValue="${"compact"}"
+            @change="${this._valueChanged}"
+            >Compact Mode?</paper-toggle-button
+          >
         </div>
       </div>
+    `;
+  }
+
+  renderStyle() {
+    return html`
+      <style>
+        paper-toggle-button {
+          padding-top: 16px;
+        }
+        .side-by-side {
+          display: flex;
+        }
+        .side-by-side > * {
+          flex: 1;
+          padding-right: 4px;
+        }
+      </style>
     `;
   }
 
@@ -102,7 +134,8 @@ export class WeatherCardEditor extends LitElement {
       } else {
         this._config = {
           ...this._config,
-          [target.configValue]: target.value
+          [target.configValue]:
+            target.checked !== undefined ? target.checked : target.value
         };
       }
     }
