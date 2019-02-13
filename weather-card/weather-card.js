@@ -245,7 +245,7 @@ class WeatherCard extends LitElement {
                             }</span
                           >
                           ${
-                            daily.templow
+                            typeof daily.templow !== 'undefined'
                               ? html`
                                   <br /><span class="lowTemp"
                                     >${daily.templow}${
