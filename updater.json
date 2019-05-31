@@ -7,8 +7,8 @@
     "changelog": "https://github.com/bramkragten/custom-ui/blob/master/graph-card/changelog.md"
   },
   "swipe-card": {
-    "updated_at": "2019-01-14",
-    "version": "2.0.0",
+    "updated_at": "2019-05-31",
+    "version": "3.0.0",
     "remote_location": "https://raw.githubusercontent.com/bramkragten/custom-ui/master/swipe-card/swipe-card.js",
     "visit_repo": "https://github.com/bramkragten/custom-ui",
     "changelog": "https://github.com/bramkragten/custom-ui/blob/master/swipe-card/changelog.md"
