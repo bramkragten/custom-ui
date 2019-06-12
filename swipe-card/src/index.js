@@ -155,6 +155,39 @@ class SwipeCard extends LitElement {
     }
 
     this.swiper = new Swiper(this.shadowRoot.querySelector(".swiper-container"), this._parameters);
+
+    this._setupTouch();
+  }
+
+  _setupTouch() {
+    const touchTarget = `.swiper-${this._parameters.touchEventsTarget || 'container'}`;
+    const touchElement = this.shadowRoot.querySelector(touchTarget);
+
+    this._is_swiping = false;
+
+    // Re-add 'touchend' event handler in swiper using capture (instead of bubbling), so events
+    // can be stopped before reaching child elements (i.e. "cards") during touch movements.
+    // This is not supported otherwise (NB: This is a hack at best).
+    touchElement.removeEventListener('touchend', this.swiper.onTouchEnd);
+    touchElement.addEventListener('touchend', this.swiper.onTouchEnd, true);
+
+    touchElement.addEventListener(
+      'touchend',
+      (ev) => {
+        if (this._is_swiping) {
+          ev.stopPropagation();
+        }
+        this._is_swiping = false;
+      },
+      true
+    );
+    touchElement.addEventListener(
+      'touchmove',
+      (ev) => {
+        this._is_swiping = true;
+      },
+      true
+    );
   }
 
   _createCardElement(cardConfig) {
