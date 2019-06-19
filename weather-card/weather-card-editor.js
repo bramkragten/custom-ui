@@ -42,6 +42,30 @@ export class WeatherCardEditor extends LitElement {
     return this._config.icons || "";
   }
 
+  get _hide_humidity() {
+    return this._config.hide_humidity || false;
+  }
+
+  get _hide_wind() {
+    return this._config.hide_wind || false;
+  }
+
+  get _hide_pressure() {
+    return this._config.hide_pressure || false;
+  }
+
+  get _hide_visibility() {
+    return this._config.hide_visibility || false;
+  }
+
+  get _hide_sunset() {
+    return this._config.hide_sunset || false;
+  }
+
+  get _hide_forecast() {
+    return this._config.hide_forecast || false;
+  }
+
   render() {
     if (!this.hass) {
       return html``;
@@ -83,6 +107,57 @@ export class WeatherCardEditor extends LitElement {
                   ></paper-input>
                 `
           }
+          <h3>Hide attributes</h3>
+          <div role="listbox">
+            <paper-item>
+              <paper-checkbox
+                label="Humidity"
+                .value="${this._hide_humidity}"
+                .configValue="${"hide_humidity"}"
+                @iron-change="${this._checkChanged}"
+              >Humidity</paper-checkbox>
+            </paper-item>
+            <paper-item>
+              <paper-checkbox
+                label="Pressure"
+                .value="${this._hide_pressure}"
+                .configValue="${"hide_pressure"}"
+                @iron-change="${this._checkChanged}"
+              >Pressure</paper-checkbox>
+            </paper-item>
+            <paper-item>
+              <paper-checkbox
+                label="Sunset / sunrise"
+                .value="${this._hide_sunset}"
+                .configValue="${"hide_sunset"}"
+                @iron-change="${this._checkChanged}"
+              >Sunset / sunrise</paper-checkbox>
+            </paper-item>
+            <paper-item>
+              <paper-checkbox
+                label="Wind"
+                .value="${this._hide_wind}"
+                .configValue="${"hide_wind"}"
+                @iron-change="${this._checkChanged}"
+              >Wind</paper-checkbox>
+              </paper-item>
+            <paper-item>
+            <paper-checkbox
+                label="Visibility"
+                .value="${this._hide_visibility}"
+                .configValue="${"hide_visibility"}"
+                @iron-change="${this._checkChanged}"
+              >Visibility</paper-checkbox>
+              </paper-item>
+            <paper-item>
+            <paper-checkbox
+                label="Forecast"
+                .value="${this._hide_forecast}"
+                .configValue="${"hide_forecast"}"
+                @iron-change="${this._checkChanged}"
+              >Forecast</paper-checkbox>
+            </paper-item>
+          </div>
         </div>
       </div>
     `;
@@ -103,6 +178,27 @@ export class WeatherCardEditor extends LitElement {
         this._config = {
           ...this._config,
           [target.configValue]: target.value
+        };
+      }
+    }
+    fireEvent(this, "config-changed", { config: this._config });
+  }
+
+  _checkChanged(ev) {
+    if (!this._config || !this.hass) {
+      return;
+    }
+    const target = ev.target;
+    if (this[`_${target.configValue}`] === target.checked) {
+      return;
+    }
+    if (target.configValue) {
+      if (!target.checked) {
+        delete this._config[target.configValue];
+      } else {
+        this._config = {
+          ...this._config,
+          [target.configValue]: target.checked
         };
       }
     }

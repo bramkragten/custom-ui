@@ -172,49 +172,86 @@ class WeatherCard extends LitElement {
         <span>
           <ul class="variations">
             <li>
-              <span class="ha-icon"
-                ><ha-icon icon="mdi:water-percent"></ha-icon
-              ></span>
-              ${stateObj.attributes.humidity}<span class="unit"> % </span>
-              <br />
-              <span class="ha-icon"
-                ><ha-icon icon="mdi:weather-windy"></ha-icon
-              ></span>
               ${
-                windDirections[
-                  parseInt((stateObj.attributes.wind_bearing + 11.25) / 22.5)
-                ]
+                !this._config.hide_humidity
+                  ? html`
+                      <span class="ha-icon"
+                        ><ha-icon icon="mdi:water-percent"></ha-icon
+                      ></span>
+                      ${stateObj.attributes.humidity}<span class="unit"> % </span>
+                      <br />
+                    `
+                  : ""
               }
-              ${stateObj.attributes.wind_speed}<span class="unit">
-                ${this.getUnit("length")}/h
-              </span>
-              <br />
-              <span class="ha-icon"
-                ><ha-icon icon="mdi:weather-sunset-up"></ha-icon
-              ></span>
-              ${next_rising.toLocaleTimeString()}
+              ${
+                !this._config.hide_wind
+                  ? html`
+                      <span class="ha-icon"
+                        ><ha-icon icon="mdi:weather-windy"></ha-icon
+                      ></span>
+                      ${
+                        windDirections[
+                          parseInt((stateObj.attributes.wind_bearing + 11.25) / 22.5)
+                        ]
+                      }
+                      ${stateObj.attributes.wind_speed}<span class="unit">
+                        ${this.getUnit("length")}/h
+                      </span>
+                      <br />
+                  `
+                : ""
+            }
+            ${
+              !this._config.hide_sunset
+                ? html`
+                    <span class="ha-icon"
+                      ><ha-icon icon="mdi:weather-sunset-up"></ha-icon
+                    ></span>
+                    ${next_rising.toLocaleTimeString()}
+                  `
+                : ""
+            }
             </li>
             <li>
-              <span class="ha-icon"><ha-icon icon="mdi:gauge"></ha-icon></span
-              >${stateObj.attributes.pressure}<span class="unit">
-                ${this.getUnit("air_pressure")}
-              </span>
-              <br />
-              <span class="ha-icon"
-                ><ha-icon icon="mdi:weather-fog"></ha-icon
-              ></span>
-              ${stateObj.attributes.visibility}<span class="unit">
-                ${this.getUnit("length")}
-              </span>
-              <br />
-              <span class="ha-icon"
-                ><ha-icon icon="mdi:weather-sunset-down"></ha-icon
-              ></span>
-              ${next_setting.toLocaleTimeString()}
+            ${
+              !this._config.hide_pressure
+                ? html`
+                    <span class="ha-icon"><ha-icon icon="mdi:gauge"></ha-icon></span
+                    >${stateObj.attributes.pressure}<span class="unit">
+                      ${this.getUnit("air_pressure")}
+                    </span>
+                    <br />
+                  `
+                : ""
+            }
+            ${
+              !this._config.hide_visibility
+                ? html`
+                <span class="ha-icon"
+                    ><ha-icon icon="mdi:weather-fog"></ha-icon
+                  ></span>
+                  ${stateObj.attributes.visibility}<span class="unit">
+                    ${this.getUnit("length")}
+                  </span>
+                  <br />
+                  `
+                : ""
+            }
+            ${
+              !this._config.hide_sunset
+                ? html`
+                <span class="ha-icon"
+                    ><ha-icon icon="mdi:weather-sunset-down"></ha-icon
+                  ></span>
+                  ${next_setting.toLocaleTimeString()}
+                  `
+                : ""
+            }
             </li>
           </ul>
         </span>
         ${
+          !this._config.hide_forecast && 
           stateObj.attributes.forecast &&
           stateObj.attributes.forecast.length > 0
             ? html`
